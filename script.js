@@ -3,6 +3,9 @@ const loadMoreButton = document.getElementById("loadMoreButton");
 const inputSearch = document.getElementById("inputSearch");
 const openCartButton = document.getElementById("openCartButton");
 const cart = document.getElementById("cart");
+const closeBtn =document.getElementById("close_btn");
+const addToBasketContainer = document.createElement('div');
+const eachBasketContent = document.getElementById('eachBasketContent');
 
 const LIMIT = 8;
 let total = 0;
@@ -47,6 +50,7 @@ function fetchProductList(skip, q = "") {
       }
       productsContainer.insertAdjacentHTML("beforeend", html);
       const addToCard = document.querySelectorAll(".addToCard");
+      const eachProduct =document.querySelector('#eachProduct');
     })
     .finally(() => {
       enableButton();
@@ -55,7 +59,7 @@ function fetchProductList(skip, q = "") {
 
 function getProductHTML({ title, price, thumbnail }) {
   return `
-    <div
+    <div 
       class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden"
     >
       <div
@@ -87,10 +91,63 @@ function getProductHTML({ title, price, thumbnail }) {
     </div>
   `;
 }
+// function basketProducts({title, thumbnail}){
+//   return `<div id="eachProduct" class="flex">
+//   <img
+//     class="h-20 w-20 object-cover rounded"
+//     src="${thumbnail}"
+//     alt=""
+//   />
+//   <div class="mx-3">
+//     <h3 class="text-sm text-gray-600">${title}</h3>
+//     <div class="flex items-center mt-2">
+//       <button
+//         class="text-gray-500 focus:outline-none focus:text-gray-600"
+//       >
+//         <svg
+//           class="h-5 w-5"
+//           fill="none"
+//           stroke-linecap="round"
+//           stroke-linejoin="round"
+//           stroke-width="2"
+//           viewBox="0 0 24 24"
+//           stroke="currentColor"
+//         >
+//           <path
+//             d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+//           ></path>
+//         </svg>
+//       </button>
+//       <span class="text-gray-700 mx-2">2</span>
+//       <button
+//         class="text-gray-500 focus:outline-none focus:text-gray-600"
+//       >
+//         <svg
+//           class="h-5 w-5"
+//           fill="none"
+//           stroke-linecap="round"
+//           stroke-linejoin="round"
+//           stroke-width="2"
+//           viewBox="0 0 24 24"
+//           stroke="currentColor"
+//         >
+//           <path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+//         </svg>
+//       </button>
+//     </div>
+//   </div>
+// </div>
+// <span class="text-gray-600">${price}</span>
+// </div>`
+// }
 
 productsContainer.addEventListener("click", function (event) {
   if (event.target.matches(".addToCard")) {
-    console.log(event.target.tagName);
+    console.log('each product',eachProduct)
+    addToBasketContainer.innerHTML=eachProduct;
+    eachBasketContent.innerHTML = addToBasketContainer;
+
+
   }
 });
 
@@ -112,3 +169,12 @@ openCartButton.addEventListener("click", function () {
 //   console.log("click");
 
 // });
+
+closeBtn.addEventListener("click", function(){
+  cart.classList.remove("translate-x-0");
+  cart.classList.remove("ease-in");
+  cart.classList.add("translate-x-full");
+  cart.classList.add("ease-out");
+
+
+})
